@@ -130,8 +130,10 @@ fun RootNavigation() {
             },
             floatingActionButton = {
                 if (currentDestination?.hierarchy?.none { it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route } == true){
-                    FloatingActionButton(onClick = {}) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "Add Item")
+                    FloatingActionButton(onClick = {
+                        navController.navigate("friendAdd")
+                    }) {
+                        Text("Add Friend")
                     }
                 }
             },
@@ -152,6 +154,10 @@ fun RootNavigation() {
                     composable(route = Routes.home.route) { HomeScreen(navController) }
                     composable(route = Routes.spotifyConnect.route) { SpotifyConnectScreen(navController) }
                     composable(route = Routes.friendsList.route) { FriendsScreen(navController) }
+                }
+                composable(route = Routes.splashScreen.route) { SplashScreen(navController) }
+                composable(Routes.addFriend.route) {
+                    FriendAddScreen(navController)
                 }
                 composable(route = Routes.splashScreen.route) { SplashScreen(navController) }
             }
