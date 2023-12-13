@@ -40,7 +40,8 @@ fun PostCreationScreen(navHostController: NavHostController) {
     val db = FirebaseFirestore.getInstance()
 
     // State variables for each attribute
-    var post by remember { mutableStateOf("") }
+    var userName by remember { mutableStateOf("") }
+    var caption by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -54,7 +55,8 @@ fun PostCreationScreen(navHostController: NavHostController) {
             textAlign = TextAlign.Center
         )
         // Form fields
-        OutlinedTextField(value = post, onValueChange = { post = it }, label = { Text("Username") })
+        OutlinedTextField(value = userName, onValueChange = { userName = it }, label = { Text("Username") })
+        OutlinedTextField(value = caption, onValueChange = { caption = it }, label = { Text("Caption") })
         location?.let { loc ->
             Text(
                 text = loc,
@@ -62,14 +64,15 @@ fun PostCreationScreen(navHostController: NavHostController) {
                 textAlign = TextAlign.Center
             )
         }
-
         // TODO Spotify stuff here
 
         // Save button
         Button(onClick = {
             val newCharacter = hashMapOf(
-                "post" to post,
+                "userName" to userName,
                 "location" to location,
+                "caption" to caption,
+                // spotify to spotify
 
                 )
             db.collection("posts").add(newCharacter)
