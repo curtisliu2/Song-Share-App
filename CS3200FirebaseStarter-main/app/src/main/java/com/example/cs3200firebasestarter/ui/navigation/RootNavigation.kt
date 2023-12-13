@@ -1,5 +1,7 @@
 package com.example.cs3200firebasestarter.ui.navigation
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -10,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -129,14 +132,30 @@ fun RootNavigation() {
                 }
             },
             floatingActionButton = {
-                if (currentDestination?.hierarchy?.none { it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route } == true){
-                    FloatingActionButton(onClick = {
-                        navController.navigate("friendAdd")
-                    }) {
-                        Text("Add Friend")
+                Column(
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.End,
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    if (currentDestination?.hierarchy?.none { it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route } == true) {
+                        FloatingActionButton(
+                            onClick = {
+                                navController.navigate("friendAdd")
+                            },
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        ) {
+                            Text("Add Friend")
+                        }
+                        FloatingActionButton(
+                            onClick = {
+                                navController.navigate("createPost")
+                            },
+                        ){
+                            Text("Create Post")
+                        }
                     }
                 }
-            },
+            }
 
         ) {
 
@@ -158,6 +177,9 @@ fun RootNavigation() {
                 composable(route = Routes.splashScreen.route) { SplashScreen(navController) }
                 composable(Routes.addFriend.route) {
                     FriendAddScreen(navController)
+                }
+                composable(Routes.postCreation.route) {
+                    PostCreationScreen(navController)
                 }
                 composable(route = Routes.splashScreen.route) { SplashScreen(navController) }
             }

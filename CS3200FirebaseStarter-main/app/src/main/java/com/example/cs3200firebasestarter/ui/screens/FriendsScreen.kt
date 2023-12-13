@@ -47,7 +47,7 @@ fun FriendsScreen(navHostController: NavHostController) {
             textAlign = TextAlign.Center
         )
 
-        // Display list of characters with Edit buttons
+        // Display friends
         LazyColumn {
             items(friendsWithIds) { (name, id, additionalData) ->
                 Row(

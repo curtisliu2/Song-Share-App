@@ -13,4 +13,5 @@ object Routes {
     val spotifyConnect = Screen(route="spotify")
     val friendsList = Screen(route="friend")
     val addFriend = Screen(route="friendAdd")
+    val postCreation = Screen(route="createPost")
 }
