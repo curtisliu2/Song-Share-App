@@ -25,7 +25,6 @@ interface SpotifyApi {
 object SpotifyRepository {
     // These should be securely fetched from a secure source
     val clientId = "58762570f97643eeb21bd3c140f3e58f"
-    val clientSecret = "62b0c06a20c644f5a2baf0d1d2c1d930"
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://api.spotify.com/v1/")

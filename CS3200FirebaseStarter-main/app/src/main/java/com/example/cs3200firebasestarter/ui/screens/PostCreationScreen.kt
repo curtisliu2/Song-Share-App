@@ -88,8 +88,7 @@ fun PostCreationScreen(navHostController: NavHostController) {
                 Text(text = item)
             }
         }
-        Spacer(modifier = Modifier.height(200.dp))
-
+        Spacer(modifier = Modifier.height(150.dp))
         // Save button
         Button(onClick = {
             val newCharacter = hashMapOf(
@@ -104,5 +103,6 @@ fun PostCreationScreen(navHostController: NavHostController) {
         }) {
             Text("Post")
         }
+        Spacer(modifier = Modifier.height(200.dp))
     }
 }

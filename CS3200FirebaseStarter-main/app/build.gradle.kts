@@ -77,6 +77,10 @@ dependencies {
     implementation("com.spotify.android:auth:1.2.5")
     implementation("com.google.code.gson:gson:2.8.6")
 
+    // App Auth
+    implementation("net.openid:appauth:0.9.1")
+
+
     val nav_version = "2.7.4"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1")
     implementation("androidx.navigation:navigation-compose:$nav_version")
