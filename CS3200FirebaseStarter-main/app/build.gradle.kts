@@ -52,8 +52,31 @@ android {
 dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
     implementation("com.google.firebase:firebase-firestore:24.9.1")
+
+    // Ditton Code
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // GSON
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+
+    val lifecycle_version = "2.6.0-alpha01"
+    val arch_version = "2.1.0"
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // ViewModel utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+
+    // Spotify Authentication
     implementation("com.spotify.android:auth:1.2.5")
     implementation("com.google.code.gson:gson:2.8.6")
+
     val nav_version = "2.7.4"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1")
     implementation("androidx.navigation:navigation-compose:$nav_version")
