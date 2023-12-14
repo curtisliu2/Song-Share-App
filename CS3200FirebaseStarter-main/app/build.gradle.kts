@@ -14,7 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        manifestPlaceholders["appAuthRedirectScheme"] = "com.songshare://callback"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -48,6 +48,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
@@ -57,6 +58,8 @@ dependencies {
 
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.12.0") // Moshi
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")// Moshi Converter for Retrofit
 
     // GSON
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

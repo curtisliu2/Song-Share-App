@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -20,6 +19,7 @@ import androidx.navigation.compose.*
 import com.example.cs3200firebasestarter.ui.repositories.UserRepository
 import com.example.cs3200firebasestarter.ui.screens.*
 import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,11 +73,10 @@ fun RootNavigation() {
                         }
                     })
 
-
-                NavigationDrawerItem(label = { Text(text = "Spotify Connect")},
+                NavigationDrawerItem(label = { Text(text = "Song Search")},
                     selected = false,
                     onClick = {
-                        navController.navigate(Routes.spotifyConnect.route) {
+                        navController.navigate(Routes.songSearch.route) {
                             popUpTo(navController.graph.startDestinationId) {
                                 saveState = true
                             }
@@ -90,6 +89,23 @@ fun RootNavigation() {
                             drawerState.close()
                         }
                     })
+
+//                NavigationDrawerItem(label = { Text(text = "Spotify Connect")},
+//                    selected = false,
+//                    onClick = {
+//                        navController.navigate(Routes.spotifyConnect.route) {
+//                            popUpTo(navController.graph.startDestinationId) {
+//                                saveState = true
+//                            }
+//                            launchSingleTop = true
+//                            restoreState = true
+//                        }
+//
+//                        // Close the drawer after navigation
+//                        scope.launch {
+//                            drawerState.close()
+//                        }
+//                    })
 
                 NavigationDrawerItem(
                     label = { Text(text = "Logout") },
@@ -173,6 +189,7 @@ fun RootNavigation() {
                     composable(route = Routes.home.route) { HomeScreen(navController) }
                     composable(route = Routes.spotifyConnect.route) { SpotifyConnectScreen(navController) }
                     composable(route = Routes.friendsList.route) { FriendsScreen(navController) }
+
                 }
                 composable(route = Routes.splashScreen.route) { SplashScreen(navController) }
                 composable(Routes.addFriend.route) {
