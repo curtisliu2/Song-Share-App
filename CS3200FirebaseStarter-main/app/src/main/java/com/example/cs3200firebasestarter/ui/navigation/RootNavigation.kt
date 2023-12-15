@@ -160,14 +160,17 @@ fun RootNavigation() {
                             },
                             modifier = Modifier.padding(bottom = 16.dp)
                         ) {
-                            Text("Add Friend")
+                            Text(text = "Add Friend",
+                                modifier = Modifier.padding(12.dp))
                         }
                         FloatingActionButton(
                             onClick = {
                                 navController.navigate("createPost")
                             },
                         ){
-                            Text("Create Post")
+                            Text(
+                                text = "Create Post",
+                                modifier = Modifier.padding(10.dp))
                         }
                     }
                 }

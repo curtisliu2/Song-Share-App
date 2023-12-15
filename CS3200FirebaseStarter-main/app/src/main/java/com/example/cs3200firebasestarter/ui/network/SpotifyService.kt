@@ -9,5 +9,5 @@ interface SpotifyService {
     suspend fun searchTracks(
         @Query("q") query: String,
         @Query("type") type: String = "track"
-    ): Response<SearchResponse> // Ensure this returns Response<SearchResponse>
+    ): Response<SearchResponse>
 }

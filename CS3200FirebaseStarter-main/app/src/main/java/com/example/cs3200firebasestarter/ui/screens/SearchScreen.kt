@@ -58,15 +58,12 @@ fun SearchScreen(spotifyViewModel: SpotifyViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Results
         searchResults?.let { result ->
             result.onSuccess { response ->
-                // Display search results
                 response.tracks.items.forEach { track ->
                     SearchResultItem(track)
                 }
             }.onFailure { throwable ->
-                // Handle error
                 Text("Error: ${throwable.localizedMessage}")
             }
         }

@@ -3,6 +3,7 @@ package com.example.cs3200firebasestarter.ui.screens
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,10 +56,16 @@ fun PostCreationScreen(navHostController: NavHostController) {
 
 
     var searchText by remember { mutableStateOf("") }
-    val filteredItems = songLibrary.filter {
-        it.startsWith(searchText, ignoreCase = true)
-    }.take(5)
-    // State variables for each attribute
+    val filteredItems = if (searchText.isNotEmpty()) {
+        songLibrary.map { song -> Pair(song, countConsecutiveMatches(song, searchText)) }
+            .filter { it.second > 0 } // Filter out items with no matches
+            .sortedByDescending { it.second } // Sort by match count
+            .map { it.first } // Extract the song names
+            .take(5)
+    } else {
+        listOf()
+    }
+
     var userName by remember { mutableStateOf("") }
     var caption by remember { mutableStateOf("") }
 
@@ -81,7 +88,7 @@ fun PostCreationScreen(navHostController: NavHostController) {
                 textAlign = TextAlign.Center
             )
         }
-        Spacer(modifier = Modifier.height(150.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         // Form fields
         OutlinedTextField(value = userName, onValueChange = { userName = it }, label = { Text("Username") })
         OutlinedTextField(value = caption, onValueChange = { caption = it }, label = { Text("Caption") })
@@ -89,14 +96,22 @@ fun PostCreationScreen(navHostController: NavHostController) {
         OutlinedTextField(
             value = searchText,
             onValueChange = { searchText = it },
-            label = { Text("Search Song") }
+            label = { Text("Search Song") },
+            modifier = Modifier.fillMaxWidth()  // Ensure full width
         )
+
         LazyColumn (
             contentPadding = PaddingValues(vertical = 4.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.fillMaxWidth()  // Ensure full width
         ) {
             items(filteredItems) { item ->
-                Text(text = item)
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { searchText = item }  // Clickable and autofill searchText
+                ) {
+                    Text(text = item, modifier = Modifier.padding(8.dp))
+                }
             }
         }
         Spacer(modifier = Modifier.height(150.dp))
@@ -107,8 +122,6 @@ fun PostCreationScreen(navHostController: NavHostController) {
                 "location" to location,
                 "caption" to caption,
                 "searchText" to searchText,
-                // spotify to spotify
-
                 )
             db.collection("posts").add(newCharacter)
             navHostController.navigate("home")
@@ -117,4 +130,20 @@ fun PostCreationScreen(navHostController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(200.dp))
     }
+}
+
+fun countConsecutiveMatches(str: String, searchText: String): Int {
+    var maxMatch = 0
+    for (i in str.indices) {
+        var matchCount = 0
+        for (j in searchText.indices) {
+            if (i + j < str.length && str[i + j].equals(searchText[j], ignoreCase = true)) {
+                matchCount++
+            } else {
+                break
+            }
+        }
+        maxMatch = maxOf(maxMatch, matchCount)
+    }
+    return maxMatch
 }

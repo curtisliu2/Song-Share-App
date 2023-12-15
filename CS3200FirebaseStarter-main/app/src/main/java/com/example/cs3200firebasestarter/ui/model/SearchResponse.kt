@@ -12,10 +12,8 @@ data class TracksResponse(
 data class TrackItem(
     @Json(name = "name") val name: String,
     @Json(name = "artists") val artists: List<Artist>,
-    // ... other relevant fields ...
 )
 
 data class Artist(
     @Json(name = "name") val name: String
-    // ... other relevant fields ...
 )

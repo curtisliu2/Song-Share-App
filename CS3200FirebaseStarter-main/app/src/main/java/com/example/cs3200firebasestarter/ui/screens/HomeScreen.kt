@@ -3,7 +3,6 @@ package com.example.cs3200firebasestarter.ui.screens
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -83,7 +82,6 @@ fun HomeScreen(navHostController: NavHostController) {
     }
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceAround
     ) {
         Text(
             text = "Your Feed!",
@@ -91,6 +89,14 @@ fun HomeScreen(navHostController: NavHostController) {
             style = MaterialTheme.typography.headlineLarge,
             textAlign = TextAlign.Center
         )
+        location?.let { loc ->
+            Text(
+                text = "Location: $loc",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        }
+        Spacer(modifier = Modifier.height(50.dp))
         LazyColumn {
             // Assuming postsWithIds is your data source
             items(postsWithIds) { (userName, id, additionalData) ->
@@ -109,12 +115,15 @@ fun HomeScreen(navHostController: NavHostController) {
                             .padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = userName,
-                            fontSize = 20.sp)
-                        Text(text = searchText)
-                        Text(text = location)
-                        Text(text = caption)
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = searchText,
+                            fontSize = 25.sp)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(text = "Shared from: $location",
+                            fontSize = 12.sp)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(text = "$userName: $caption",
+                            fontSize = 16.sp)
+                        Spacer(modifier = Modifier.height(20.dp))
                         TextButton(onClick = { deletePost(id) }) {
                             Text("Delete Post")
                         }
@@ -123,13 +132,6 @@ fun HomeScreen(navHostController: NavHostController) {
             }
         }
 
-        location?.let { loc ->
-            Text(
-                text = loc,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-        }
     }
 }
 
