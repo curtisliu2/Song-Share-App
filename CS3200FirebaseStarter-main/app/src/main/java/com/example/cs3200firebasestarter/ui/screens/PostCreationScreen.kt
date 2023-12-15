@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,6 +36,16 @@ fun PostCreationScreen(navHostController: NavHostController) {
             locationViewModel.locationData.value = "Permission denied"
         }
     }
+    var songLibrary by remember {
+        mutableStateOf(listOf<String>())
+    }
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        context.assets.open("My Spotify Library.txt").bufferedReader().useLines { lines ->
+            songLibrary = lines.toList()
+        }
+    }
+
 
     LaunchedEffect(Unit) {
         launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -44,9 +55,9 @@ fun PostCreationScreen(navHostController: NavHostController) {
 
 
     var searchText by remember { mutableStateOf("") }
-    val allItems = listOf("Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew") // Example data
-    val filteredItems = allItems.filter { it.startsWith(searchText, ignoreCase = true) }.take(5) // Filtering and limiting to 5 items
-
+    val filteredItems = songLibrary.filter {
+        it.startsWith(searchText, ignoreCase = true)
+    }.take(5)
     // State variables for each attribute
     var userName by remember { mutableStateOf("") }
     var caption by remember { mutableStateOf("") }
