@@ -95,6 +95,7 @@ fun PostCreationScreen(navHostController: NavHostController) {
                 "userName" to userName,
                 "location" to location,
                 "caption" to caption,
+                "searchText" to searchText,
                 // spotify to spotify
 
                 )

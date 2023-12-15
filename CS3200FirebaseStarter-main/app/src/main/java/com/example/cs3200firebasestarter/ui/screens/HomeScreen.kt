@@ -96,6 +96,7 @@ fun HomeScreen(navHostController: NavHostController) {
             items(postsWithIds) { (userName, id, additionalData) ->
                 val caption = additionalData["caption"] as? String ?: ""
                 val location = additionalData["location"] as? String ?: ""
+                val searchText = additionalData["searchText"] as? String?: ""
 
                 // Using Card for a boxed appearance
                 Card(modifier = Modifier
@@ -110,6 +111,7 @@ fun HomeScreen(navHostController: NavHostController) {
                     ) {
                         Text(text = userName,
                             fontSize = 20.sp)
+                        Text(text = searchText)
                         Text(text = location)
                         Text(text = caption)
                         Spacer(modifier = Modifier.height(16.dp))
