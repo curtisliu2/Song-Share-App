@@ -74,7 +74,7 @@ fun HomeScreen(navHostController: NavHostController) {
                 val fetchedPosts = mutableListOf<Triple<String, String, Map<String, Any>>>()
                 for (document in result) {
                     val name = document.getString("userName") ?: ""
-                    val additionalData = document.data - "userName"  // Assuming you have other fields like 'race' and 'class' here
+                    val additionalData = document.data - "userName"
                     fetchedPosts.add(Triple(name, document.id, additionalData))
                 }
                 postsWithIds = fetchedPosts

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cs3200firebasestarter.ui.viewmodels.LocationViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,6 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 fun PostCreationScreen(navHostController: NavHostController) {
     val locationViewModel: LocationViewModel = viewModel()
     val location by locationViewModel.locationData.observeAsState()
+    val userEmail by remember { mutableStateOf(FirebaseAuth.getInstance().currentUser?.email) }
+    var userName = userEmail?.substringBefore("@")
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -66,7 +70,7 @@ fun PostCreationScreen(navHostController: NavHostController) {
         listOf()
     }
 
-    var userName by remember { mutableStateOf("") }
+//    var userName by remember { mutableStateOf("") }
     var caption by remember { mutableStateOf("") }
 
     Column(
@@ -90,7 +94,7 @@ fun PostCreationScreen(navHostController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(20.dp))
         // Form fields
-        OutlinedTextField(value = userName, onValueChange = { userName = it }, label = { Text("Username") })
+        userName?.let { OutlinedTextField(value = it, onValueChange = { userName = it }, label = { Text("Username") }) }
         OutlinedTextField(value = caption, onValueChange = { caption = it }, label = { Text("Caption") })
         // TODO Spotify stuff here
         OutlinedTextField(

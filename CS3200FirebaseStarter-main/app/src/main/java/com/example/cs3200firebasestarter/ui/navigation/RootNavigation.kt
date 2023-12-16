@@ -73,7 +73,25 @@ fun RootNavigation() {
                         }
                     })
 
-                NavigationDrawerItem(label = { Text(text = "Song Search")},
+                NavigationDrawerItem(label = { Text(text = "Spotify Connect")},
+                    selected = false,
+                    onClick = {
+                        navController.navigate(Routes.spotifyConnect.route) {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+
+                        // Close the drawer after navigation
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    })
+
+
+                NavigationDrawerItem(label = { Text(text = "Song Search (Experimental)")},
                     selected = false,
                     onClick = {
                         navController.navigate(Routes.songSearch.route) {
@@ -89,23 +107,6 @@ fun RootNavigation() {
                             drawerState.close()
                         }
                     })
-
-//                NavigationDrawerItem(label = { Text(text = "Spotify Connect")},
-//                    selected = false,
-//                    onClick = {
-//                        navController.navigate(Routes.spotifyConnect.route) {
-//                            popUpTo(navController.graph.startDestinationId) {
-//                                saveState = true
-//                            }
-//                            launchSingleTop = true
-//                            restoreState = true
-//                        }
-//
-//                        // Close the drawer after navigation
-//                        scope.launch {
-//                            drawerState.close()
-//                        }
-//                    })
 
                 NavigationDrawerItem(
                     label = { Text(text = "Logout") },
